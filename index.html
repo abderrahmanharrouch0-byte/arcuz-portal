@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arcuz Portal</title>
+
+<!-- Ruffle Flash Emulator -->
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+
+<!-- Fantasy Font -->
+<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'MedievalSharp', Georgia, serif;
+  background: radial-gradient(#1a1a2e, #0b0b12);
+  color: #f5f5dc;
+  overflow-x: hidden;
+}
+
+/* Fog effect */
+body::before {
+  content: "";
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background: url('https://i.imgur.com/3ZQ3Z9A.png');
+  opacity: 0.05;
+  animation: fog 60s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes fog {
+  from { transform: translate(0,0); }
+  to { transform: translate(-500px, -200px); }
+}
+
+/* HEADER */
+header {
+  background: #111;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid gold;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: gold;
+}
+
+/* BUTTONS */
+button {
+  background: linear-gradient(#2b2b2b, #111);
+  border: 1px solid gold;
+  color: gold;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-left: 5px;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px gold;
+}
+
+/* LAYOUT */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px;
+}
+
+/* GAME AREA */
+.game-box {
+  flex: 2;
+  min-width: 300px;
+  height: 600px;
+  margin: 10px;
+  border: 2px solid gold;
+  background: #000;
+  position: relative;
+}
+
+/* FULLSCREEN BUTTON */
+.fullscreen {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+/* SIDEBAR */
+.sidebar {
+  flex: 1;
+  min-width: 250px;
+  margin: 10px;
+}
+
+.panel {
+  background: rgba(20,20,30,0.9);
+  border: 1px solid gold;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+/* MODAL */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal .panel {
+  width: 320px;
+  animation: pop 0.2s ease-out;
+}
+
+@keyframes pop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* INPUT */
+input {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  background: #111;
+  border: 1px solid gold;
+  color: white;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .game-box {
+    height: 400px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">⚔ Arcuz Portal</div>
+  <div>
+    <button onclick="openLogin()">Login</button>
+    <button onclick="openRegister()">Register</button>
+    <button onclick="openSettings()">Options</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- GAME -->
+  <div class="game-box">
+    <button class="fullscreen" onclick="toggleFullscreen()">⛶</button>
+
+    <div id="game"></div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="panel">
+      <h3>🎮 Game Info</h3>
+      <p>Arcuz Adventure Portal</p>
+      <p>Fight monsters, level up, explore dungeons!</p>
+    </div>
+
+    <div class="panel">
+      <h3>🔥 News</h3>
+      <p>New quests coming soon...</p>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="login" class="modal">
+  <div class="panel">
+    <h3>Login</h3>
+    <input placeholder="Username">
+    <input type="password" placeholder="Password">
+    <button>Enter</button>
+    <button onclick="closeAll()">Close</button>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<div id="register" class="modal">
+  <div class="panel">
+    <h3>Register</h3>
+    <input placeholder="Username">
+    <input placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button>Create</button>
+    <button onclick="closeAll()">Close</button>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div id="settings" class="modal">
+  <div class="panel">
+    <h3>Options</h3>
+
+    <label>Sound</label>
+    <input type="range">
+
+    <label>Graphics</label>
+    <input type="range">
+
+    <button onclick="closeAll()">Close</button>
+  </div>
+</div>
+
+<script>
+/* MODALS */
+function openLogin() {
+  closeAll();
+  document.getElementById("login").style.display = "flex";
+}
+
+function openRegister() {
+  closeAll();
+  document.getElementById("register").style.display = "flex";
+}
+
+function openSettings() {
+  closeAll();
+  document.getElementById("settings").style.display = "flex";
+}
+
+function closeAll() {
+  document.getElementById("login").style.display = "none";
+  document.getElementById("register").style.display = "none";
+  document.getElementById("settings").style.display = "none";
+}
+
+/* FULLSCREEN */
+function toggleFullscreen() {
+  const elem = document.querySelector(".game-box");
+
+  if (!document.fullscreenElement) {
+    elem.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+/* LOAD SWF WITH RUFFLE */
+window.addEventListener("load", () => {
+  const ruffle = window.RufflePlayer.newest();
+  const player = ruffle.createPlayer();
+  document.getElementById("game").appendChild(player);
+
+  // ⚠️ MAKE SURE FILE NAME MATCHES
+  player.load("arcuz2.swf");
+});
+</script>
+
+</body>
+</html>
