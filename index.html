@@ -269,13 +269,7 @@ function toggleFullscreen() {
     document.exitFullscreen();
   }
 }
-<script>
-window.RufflePlayer = window.RufflePlayer || {};
-window.RufflePlayer.config = {
-  "autoplay": "on",
-  "allowScriptAccess": true
-};
-</script>
+
 /* LOAD SWF WITH RUFFLE */
 window.addEventListener("load", () => {
   const ruffle = window.RufflePlayer.newest();
