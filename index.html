@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-
-  <!-- ✅ GOOGLE VERIFICATION -->
-  <meta name="google-site-verification" content="1Ao-tewH7Aq9JPAoeQCPO07RoJzV0EWYHSasZorl2bk" />
-
-  <title>Arcuz Portal</title>
-
-<meta name="description" content="Play Arcuz 2 online free. Explore dungeons, level up your hero and fight monsters in this RPG adventure game.">
-
-<meta name="keywords" content="Arcuz 2, RPG game, play online, free game, dungeon game">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arcuz Portal</title>
 
-<!-- Ruffle Flash Emulator -->
+<!-- SEO -->
+<title>Arcuz Portal</title>
+<meta name="description" content="Play Arcuz 2 online free. Explore dungeons, level up your hero and fight monsters in this RPG adventure game.">
+<meta name="keywords" content="Arcuz 2, RPG game, play online, free game, dungeon game">
+
+<!-- Google verification -->
+<meta name="google-site-verification" content="1Ao-tewH7Aq9JPAoeQCPO07RoJzV0EWYHSasZorl2bk" />
+
+<!-- Ruffle -->
 <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
 
-<!-- Fantasy Font -->
+<!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
 
 <style>
@@ -27,39 +24,12 @@ body {
   font-family: 'MedievalSharp', Georgia, serif;
   background: radial-gradient(#1a1a2e, #0b0b12);
   color: #f5f5dc;
-  overflow-x: hidden;
-}
-
-/* Fog effect */
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: url("fog6.jpg");
-  opacity: 0.04;
-  pointer-events: none;
-}
-
-body::after {
-  animation: fogMove2 120s linear infinite;
-}
-
-@keyframes fogMove2 {
-  from { transform: translate(0,0); }
-  to { transform: translate(400px, 200px); }
-}
-
-@keyframes fog {
-  from { transform: translate(0,0); }
-  to { transform: translate(-500px, -200px); }
 }
 
 /* HEADER */
 header {
   background: #111;
-  padding: 10px 20px;
+  padding: 12px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,7 +38,6 @@ header {
 
 .logo {
   font-size: 22px;
-  font-weight: bold;
   color: gold;
 }
 
@@ -79,7 +48,6 @@ button {
   color: gold;
   padding: 10px 14px;
   cursor: pointer;
-  transition: 0.2s;
   margin-left: 5px;
 }
 
@@ -95,7 +63,7 @@ button:hover {
   padding: 15px;
 }
 
-/* GAME AREA */
+/* GAME */
 .game-box {
   flex: 2;
   min-width: 300px;
@@ -106,12 +74,10 @@ button:hover {
   position: relative;
 }
 
-/* FULLSCREEN BUTTON */
 .fullscreen {
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 10;
 }
 
 /* SIDEBAR */
@@ -143,12 +109,6 @@ button:hover {
 
 .modal .panel {
   width: 320px;
-  animation: pop 0.2s ease-out;
-}
-
-@keyframes pop {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
 }
 
 /* INPUT */
@@ -159,6 +119,21 @@ input {
   background: #111;
   border: 1px solid gold;
   color: white;
+}
+
+/* DONATION */
+.donate {
+  text-align: center;
+}
+
+.donate img {
+  width: 220px;
+  transition: 0.3s;
+}
+
+.donate img:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 10px gold);
 }
 
 /* MOBILE */
@@ -180,7 +155,6 @@ input {
   <div>
     <button onclick="openLogin()">Login</button>
     <button onclick="openRegister()">Register</button>
-    
   </div>
 </header>
 
@@ -189,7 +163,6 @@ input {
   <!-- GAME -->
   <div class="game-box">
     <button class="fullscreen" onclick="toggleFullscreen()">⛶</button>
-
     <div id="game"></div>
   </div>
 
@@ -197,7 +170,6 @@ input {
   <div class="sidebar">
     <div class="panel">
       <h3>🎮 Game Info</h3>
-      <p>Arcuz Adventure Portal</p>
       <p>Fight monsters, level up, explore dungeons!</p>
     </div>
 
@@ -205,7 +177,16 @@ input {
       <h3>🔥 News</h3>
       <p>New quests coming soon...</p>
     </div>
+
+    <!-- DONATE -->
+    <div class="panel donate">
+      <h3>💖 Support Us</h3>
+      <a href="https://paypal.me/z0ldyx0" target="_blank">
+        <img src="paypaldonate.png" alt="Donate with PayPal">
+      </a>
+    </div>
   </div>
+
 </div>
 
 <!-- LOGIN -->
@@ -231,33 +212,7 @@ input {
   </div>
 </div>
 
-<!-- SETTINGS -->
-<div id="settings" class="modal">
-  <div class="panel">
-    <h3>Options</h3>
-
-    <label>Sound</label>
-    <input type="range">
-
-    <label>Graphics</label>
-    <input type="range">
-
-    <button onclick="closeAll()">Close</button>
-  </div>
-
-<div class="wpb_text_column wpb_content_element " >
-		<div class="wpb_wrapper">
-			<h2 style="text-align: center;">PayPal</h2>
-        <p>&nbsp;</p>
-		<p><a href="https://paypal.me/z0ldyx0"><img decoding="async"   alt="" width="300" height="145" data-srcset=paypaldonate.png 662w" " /><noscript><img decoding="async" class="alignnone size-medium wp-image-2983" src="paypaldonate.png" alt="" width="300" height="145" srcset="paypaldonate.png 300w" sizes="(max-width: 300px) 100vw, 300px" /></noscript></a></p>
-</div>
-	<p>Donations made using PayPal will automatically be paid to the SSF Gift Aid bank account.  In the Notes section please state where you would like your donation to go (Hilfield, Alnmouth, Glasshampton, Plaistow, Belfast, Birmingham CSF, Birmingham SSF, Canterbury, First Order, CSF or SSF). If you would like to Gift Aid your donation please complete and submit the Gift Aid Form.</p>
-	<a href="https://paypal.me/z0ldyx0">
-  <img src="paypaldonate.png" alt="Description of image" width="300">
-</a>
-<img>
 <script>
-/* MODALS */
 function openLogin() {
   closeAll();
   document.getElementById("login").style.display = "flex";
@@ -268,21 +223,14 @@ function openRegister() {
   document.getElementById("register").style.display = "flex";
 }
 
-function openSettings() {
-  closeAll();
-  document.getElementById("settings").style.display = "flex";
-}
-
 function closeAll() {
   document.getElementById("login").style.display = "none";
   document.getElementById("register").style.display = "none";
-  document.getElementById("settings").style.display = "none";
 }
 
 /* FULLSCREEN */
 function toggleFullscreen() {
   const elem = document.querySelector(".game-box");
-
   if (!document.fullscreenElement) {
     elem.requestFullscreen();
   } else {
@@ -290,13 +238,11 @@ function toggleFullscreen() {
   }
 }
 
-/* LOAD SWF WITH RUFFLE */
+/* RUFFLE */
 window.addEventListener("load", () => {
   const ruffle = window.RufflePlayer.newest();
   const player = ruffle.createPlayer();
   document.getElementById("game").appendChild(player);
-
-  // ⚠️ MAKE SURE FILE NAME MATCHES
   player.load("arcuz2.swf");
 });
 </script>
